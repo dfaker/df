@@ -24,7 +24,7 @@ def async_get_training_data( images, srcPoints, dstPoints, batch_size,workerqueu
           image = images[index]
           image = random_transform( image, **random_transform_args )
 
-          closest = ( numpy.mean(numpy.square(srcPoints[index]-dstPoints),axis=(1,2)) ).argsort()[2:10]
+          closest = ( numpy.mean(numpy.square(srcPoints[index]-dstPoints),axis=(1,2)) ).argsort()[:10]
           closest = numpy.random.choice(closest)
           warped_img, target_img, mask_image = random_warp_src_dest( image,srcPoints[index],dstPoints[ closest ] )
  
