@@ -58,21 +58,13 @@ def convert_one_image( autoencoder,otherautoencoder, image, mat,facepoints,erosi
 
     new_face_rgb,new_face_m = autoencoder.predict( [face / 255.0,zmask] )
 
-    _,other_face_m = otherautoencoder.predict( [face / 255.0,zmask] )
+    #_,other_face_m = otherautoencoder.predict( [face / 255.0,zmask] )
 
-    new_face_m = numpy.maximum(new_face_m, other_face_m )
+    #new_face_m = numpy.maximum(new_face_m, other_face_m )
 
 
     new_face_rgb = numpy.clip( new_face_rgb[0] * 255, 0, 255 ).astype( image.dtype )
     new_face_m   = numpy.clip( new_face_m[0]  , 0, 1 ).astype( float ) * numpy.ones((new_face_m.shape[0],new_face_m.shape[1],3))
-
-
-    #new_face_rgb = cv2.resize(new_face_rgb,(128,128),cv2.INTER_CUBIC)
-    #new_face_m = cv2.resize(new_face_m,(128,128),cv2.INTER_CUBIC)
-
-
-    print(new_face_rgb.shape)
-    print(new_face_m.shape)
 
     base_image = numpy.copy( image )
     new_image = numpy.copy( image ) 
@@ -89,9 +81,10 @@ def convert_one_image( autoencoder,otherautoencoder, image, mat,facepoints,erosi
 
     cv2.warpAffine( new_face_m, transmat, image_size, image_mask, cv2.WARP_INVERSE_MAP | cv2.INTER_CUBIC, cv2.BORDER_TRANSPARENT )
     
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(2,2))
-    image_mask = cv2.erode(image_mask,kernel,iterations = 1)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(3,3))
+    image_mask = cv2.dilate(image_mask,kernel,iterations = 1)
 
+    image_mask = cv2.GaussianBlur(image_mask,(5,5),0)
 
     if seamlessClone:
 
@@ -116,7 +109,7 @@ def convert_one_image( autoencoder,otherautoencoder, image, mat,facepoints,erosi
     
     output = numpy.add(background,foreground)
 
-    cv2.imshow("output", output.astype(numpy.uint8) )
+    #cv2.imshow("output", output.astype(numpy.uint8) )
 
     if cv2.waitKey(1)==ord('q'):
       exit()
