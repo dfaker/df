@@ -17,7 +17,7 @@ if __name__ == '__main__':
   images_A = get_image_paths( "data/A" )
   images_B = get_image_paths( "data/B"  )
 
-  minImages = min(len(images_A),len(images_B))*2
+  minImages = 2000#min(len(images_A),len(images_B))*20
 
   random.shuffle(images_A)
   random.shuffle(images_B)
@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
   print( "press 'q' to stop training and save model" )
 
-  batch_size = int(64*1.5)
+  batch_size = int(32)
 
   warped_A, target_A, mask_A = get_training_data( images_A,  landmarks_A,landmarks_B, batch_size )
   warped_B, target_B, mask_B  = get_training_data( images_B, landmarks_B,landmarks_A, batch_size )
@@ -84,6 +84,7 @@ if __name__ == '__main__':
       
         omask = numpy.ones((target_A.shape[0],64,64,1),float)
 
+
         loss_A = autoencoder_A.train_on_batch([warped_A,mask_A], [target_A,mask_A])
         loss_B = autoencoder_B.train_on_batch([warped_B,mask_B], [target_B,mask_B])
 
@@ -96,19 +97,35 @@ if __name__ == '__main__':
           test_A = target_A[0:8,:,:,:3]
           test_B = target_B[0:8,:,:,:3]
 
+          test_A_i = []
+          test_B_i = []
+          
+          for i in test_A:
+            test_A_i.append(cv2.resize(i,(64,64),cv2.INTER_AREA))
+          test_A_i = numpy.array(test_A_i).reshape((-1,64,64,3))
+
+          for i in test_B:
+            test_B_i.append(cv2.resize(i,(64,64),cv2.INTER_AREA))
+          test_B_i = numpy.array(test_B_i).reshape((-1,64,64,3))
+
+
+
+
+
+
         figWarped = numpy.stack([warped_A[:6],warped_B[:6]],axis=0 )
         figWarped = numpy.clip( figWarped * 255, 0, 255 ).astype('uint8')
         figWarped = stack_images( figWarped )
         cv2.imshow( "w", figWarped )
 
         
-        zmask = numpy.zeros((test_A.shape[0],64,64,1),float)
+        zmask = numpy.zeros((test_A.shape[0],128,128,1),float)
 
-        pred_a_a,pred_a_a_m = autoencoder_A.predict([test_A,zmask])
-        pred_b_a,pred_b_a_m = autoencoder_B.predict([test_A,zmask])
+        pred_a_a,pred_a_a_m = autoencoder_A.predict([test_A_i,zmask])
+        pred_b_a,pred_b_a_m = autoencoder_B.predict([test_A_i,zmask])
 
-        pred_a_b,pred_a_b_m = autoencoder_A.predict([test_B,zmask])
-        pred_b_b,pred_b_b_m = autoencoder_B.predict([test_B,zmask])
+        pred_a_b,pred_a_b_m = autoencoder_A.predict([test_B_i,zmask])
+        pred_b_b,pred_b_b_m = autoencoder_B.predict([test_B_i,zmask])
 
         pred_a_a = pred_a_a[0:18,:,:,:3]
         pred_a_b = pred_a_b[0:18,:,:,:3]

@@ -61,6 +61,7 @@ optimizer = Adam( lr=5e-5, beta_1=0.5, beta_2=0.999 )
 
 
 IMAGE_SHAPE = (64,64,3)
+
 ENCODER_DIM = 1024
 conv_init = RandomNormal(0, 0.02)
 gamma_init = RandomNormal(1., 0.02)
@@ -121,13 +122,17 @@ def Decoder(name):
     skip_in = Input( shape=(8,8,512) )
 
     x = input_
-
+    x = upscale(512)(x)
+    x = res_block(x, 512)
     x = upscale(256)(x)
+    x = res_block(x, 256)
     x = upscale(128)(x)
+    x = res_block(x, 128)
     x = upscale(64)(x)
-    x = Conv2D( 3, kernel_size=5, padding='same', activation='tanh' )(x)
+    x = Conv2D( 3, kernel_size=5, padding='same', activation='sigmoid' )(x)
 
     y = input_
+    y = upscale(512)(y)
     y = upscale(256)(y)
     y = upscale(128)(y)
     y = upscale(64)(y)
@@ -144,14 +149,14 @@ print(decoder_A.summary())
 
 x1 = Input( shape=IMAGE_SHAPE )
 x2 = Input( shape=IMAGE_SHAPE )
-m1 = Input( shape=(64,64,1) )
-m2 = Input( shape=(64,64,1) )
+m1 = Input( shape=(64*2,64*2,1) )
+m2 = Input( shape=(64*2,64*2,1) )
 
 autoencoder_A = Model( [x1,m1], decoder_A( encoder(x1) ) )
-autoencoder_A = multi_gpu_model( autoencoder_A ,2)
+#autoencoder_A = multi_gpu_model( autoencoder_A ,2)
 
 autoencoder_B = Model( [x2,m2], decoder_B( encoder(x2) ) )
-autoencoder_B = multi_gpu_model( autoencoder_B ,2)
+#autoencoder_B = multi_gpu_model( autoencoder_B ,2)
 
 o1,om1  = decoder_A( encoder(x1))
 o2,om2  = decoder_B( encoder(x2))

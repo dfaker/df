@@ -61,8 +61,8 @@ def random_warp_src_dest( in_image,srcPoints,destPoints ):
   target_image = in_image[:,:,:3]
 
   warped       = cv2.resize( warped[ 128-120:128+120,128-120:128+120,:]         ,(64,64),cv2.INTER_AREA)
-  target_image = cv2.resize( target_image[ 128-120:128+120,128-120:128+120,: ]  ,(64,64),cv2.INTER_AREA)
-  target_mask  = cv2.resize( target_mask[ 128-120:128+120,128-120:128+120,: ]   ,(64,64),cv2.INTER_AREA).reshape((64,64,1))
+  target_image = cv2.resize( target_image[ 128-120:128+120,128-120:128+120,: ]  ,(64*2,64*2),cv2.INTER_AREA)
+  target_mask  = cv2.resize( target_mask[ 128-120:128+120,128-120:128+120,: ]   ,(64*2,64*2),cv2.INTER_AREA).reshape((64*2,64*2,1))
 
   return warped,target_image,target_mask
 

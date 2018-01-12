@@ -18,7 +18,7 @@ n=0
 
 imageSize = 256
 croppedSize = 240 
-zmask = numpy.zeros((1,64,64,1),float)
+zmask = numpy.zeros((1,128, 128,1),float)
 
 def adjust_avg_color(img_old,img_new, mask):
     assert(img_old.shape==img_new.shape) 
@@ -67,8 +67,8 @@ def convert_one_image( autoencoder,otherautoencoder, image, mat,facepoints,erosi
     new_face_m   = numpy.clip( new_face_m[0]  , 0, 1 ).astype( float ) * numpy.ones((new_face_m.shape[0],new_face_m.shape[1],3))
 
 
-    new_face_rgb = cv2.resize(new_face_rgb,(128,128),cv2.INTER_CUBIC)
-    new_face_m = cv2.resize(new_face_m,(128,128),cv2.INTER_CUBIC)
+    #new_face_rgb = cv2.resize(new_face_rgb,(128,128),cv2.INTER_CUBIC)
+    #new_face_m = cv2.resize(new_face_m,(128,128),cv2.INTER_CUBIC)
 
 
     print(new_face_rgb.shape)
