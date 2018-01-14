@@ -129,7 +129,6 @@ def main( args ):
     output_dir = input_dir / args.output_dir
     output_dir.mkdir( parents=True, exist_ok=True )
 
-    args.direction = 'AtoB'
     if args.direction == 'AtoB': autoencoder,otherautoencoder = autoencoder_B,autoencoder_A
     if args.direction == 'BtoA': autoencoder,otherautoencoder = autoencoder_A,autoencoder_B
     
