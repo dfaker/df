@@ -10,7 +10,7 @@ Larger resolution face masked, weirdly warped, deepfake, requires https://github
 * run merge_faces_larger.py on your image folder.
 
 
-Directory structure for training data should look like:
+Directory structure for training data should look like (image names for example purposes only):
 
     
     df
