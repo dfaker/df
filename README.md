@@ -8,3 +8,34 @@ Larger resolution face masked, weirdly warped, deepfake, requires https://github
 * run train.py as usual
 * wait
 * run merge_faces_larger.py on your image folder.
+
+
+Directory structure for training data should look like:
+
+    
+    df
+    │
+    └────data
+        │
+        ├───A
+        │   │ alignments.json
+        │   │ trainingimageA1.jpg
+        │   │ trainingimageA2.jpg
+        │
+        ├───B
+        │   │ alignments.json
+        │   │ trainingimageB1.jpg
+        │   │ trainingimageB2.jpg
+        
+
+
+or as a file listing:
+
+
+
+    .\df\data\A\alignments.json
+    .\df\data\A\trainingimageA1.jpg
+    .\df\data\A\trainingimageA2.jpg
+    .\df\data\B\alignments.json
+    .\df\data\B\trainingimageB1.jpg
+    .\df\data\B\trainingimageB2.jpg
