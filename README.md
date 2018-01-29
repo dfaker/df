@@ -15,7 +15,7 @@ Directory structure for training data should look like:
     
     df
     │
-    └────data
+    └───data
         │
         ├───A
         │   │ alignments.json
