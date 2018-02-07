@@ -2,9 +2,13 @@
 
 Larger resolution face masked, weirdly warped, deepfake, requires https://github.com/keras-team/keras-contrib.git to be cloned into the root of the repo and A and B's alignments.json to be copied into the correct /data/* folder before training.
 
+### Training
+![training](https://github.com/dfaker/df/raw/master/trumpcage.png)
 
-![alt text](https://github.com/dfaker/df/raw/master/trumpcage.png)
+### Merged
+![merged](https://github.com/dfaker/df/raw/master/trumpcagemerge.jpg)
 
+### Guide
 
 * Clone this repository
 * cd into the folder df and clone https://github.com/keras-team/keras-contrib.git
@@ -14,7 +18,6 @@ Larger resolution face masked, weirdly warped, deepfake, requires https://github
 * run train.py as usual
 * wait
 * run merge_faces_larger.py on your image folder.
-
 
 Directory structure for training data should look like (image names for example purposes only):
 
