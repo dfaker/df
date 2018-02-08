@@ -2,6 +2,12 @@
 
 Larger resolution face masked, weirdly warped, deepfake, requires https://github.com/keras-team/keras-contrib.git to be cloned into the root of the repo and A and B's alignments.json to be copied into the correct /data/* folder before training.
 
+Inputs are 64x64 images outputs are a pair of 128x128 images one RGB with the reconstructed face, one B/W to be used as a mask to guide what sections of the image are to be replaced. 
+
+For the reconstrcuted face masked DSSIM loss is used that behaves as a standard SSIM difference measure in the central face area and always returns zero loss in the surrounding background area outside of the face so as as not to train irrelevant features.
+
+MSE is used for the mask.
+
 ### Training
 ![training](https://github.com/dfaker/df/raw/master/trumpcage.png)
 
