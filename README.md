@@ -58,3 +58,14 @@ or as a file listing:
     .\df\data\B\alignments.json
     .\df\data\B\trainingimageB1.jpg
     .\df\data\B\trainingimageB2.jpg
+
+
+### imageGapsScanner.py
+
+Image gaps scanner can be run with this command to scan both the A and B folders:
+    
+    imageGapsScanner.py data\A data\B
+    
+it will pop open a new window showing two rows, the images in A that have the worst matches in B and the images in B that have the worst matches in A:
+![abdmatches](https://github.com/dfaker/df/raw/master/badmatches.png)
+In that example the top row has some clear images that are totally different to the data in B, ideally these would be hunted down, you'd try to find some images of cage shouting at various angles, of the examples in the bottom row however on the first seems to be of a concern, you would consider deleting that image or finding a matching trump image for it, fo the remaining images in the bottom row, although they are the top 9 "worst" matches they seem to be relatively nomal front-on shots and can be ignored.
