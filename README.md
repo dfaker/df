@@ -11,8 +11,12 @@ MSE is used for the mask.
 ### Training
 ![training](https://github.com/dfaker/df/raw/master/trumpcage.png)
 
-### Merged
+### Merged Face Extracts
 ![merged](https://github.com/dfaker/df/raw/master/trumpcagemerge.jpg)
+
+### Final output
+![finaloutput](https://github.com/dfaker/df/raw/master/finalmerged.jpg)
+
 
 ### Guide
 
