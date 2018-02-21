@@ -88,6 +88,8 @@ def decoder(alignment_dir, alignments, seekstart, durationtime, facequeue, frame
                     
                     facequeue.put((image, mat, sourceFace, face / 255.0, alignments[idx][0]))
                     processed = True
+                    idx += 1
+                    break
                     
                 idx += 1
                 
@@ -240,7 +242,7 @@ def encoder(thread_number, framequeue, queue_list):
             
         framepts, frame = frameitem
         while frame is None:
-            time.sleep(0.3)
+            time.sleep(0.3) # You can tune it small for faster speed if you have more powerful machine.
             for i in range(thread_number):
                 if faceitems[i] is None:
                     try:
