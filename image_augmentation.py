@@ -29,7 +29,7 @@ def random_warp_src_dest( in_image,srcPoints,destPoints ):
 
   source = srcPoints
   destination = (destPoints.copy().astype('float')+numpy.random.normal( size=(destPoints.shape), scale= 2 ))
-  destination = destination.astype('uint8')
+  destination = destination.astype('int')
 
   faceCore =cv2.convexHull( numpy.concatenate([source[17:],destination[17:]], axis=0).astype(int) )
 
