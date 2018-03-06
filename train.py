@@ -31,7 +31,7 @@ if __name__ == '__main__':
   images_A = images_A/255.0
   images_B = images_B/255.0
 
-  images_A[:,:,:3] += images_B[:,:,:3].mean( axis=(0,1,2) ) - images_A[:,:,:3].mean( axis=(0,1,2) )
+  images_A[:,:,:,:3] += images_B[:,:,:,:3].mean( axis=(0,1,2) ) - images_A[:,:,:,:3].mean( axis=(0,1,2) )
 
   print( "press 'q' to stop training and save model" )
 
