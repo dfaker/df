@@ -6,5 +6,4 @@ opencv-python==3.3.0.10
 tensorflow-gpu==1.4.0
 scikit-image
 dlib
-face_recognition
-tqdm
+hjvfytvg
